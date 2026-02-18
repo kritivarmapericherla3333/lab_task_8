@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Number to Words</title>
+</head>
+
+<body>
+
+    <h3>Enter a number (0 - 999):</h3>
+
+    <input type="text" id="num" maxlength="3">
+    <button onclick="convertToWords()">Convert</button>
+
+    <p id="result"></p>
+
+    <script>
+        function convertToWords() {
+            var num = document.getElementById("num").value;
+
+                       if (!/^\d+$/.test(num)) {
+                document.getElementById("result").textContent = "Invalid input. Enter digits only.";
+                return;
+            }
+
+            num = parseInt(num);
+
+            if (num < 0 || num > 999) {
+                document.getElementById("result").textContent = "Number must be between 0 and 999.";
+                return;
+            }
+
+            var ones = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"];
+            var teens = ["Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen",
+                         "Sixteen", "Seventeen", "Eighteen", "Nineteen"];
+            var tens = ["", "", "Twenty", "Thirty", "Forty", "Fifty",
+                        "Sixty", "Seventy", "Eighty", "Ninety"];
+
+            var words = "";
+
+            if (num == 0) {
+                words = "Zero";
+            }
+            else {
+                if (Math.floor(num / 100) > 0) {
+                    words += ones[Math.floor(num / 100)] + " Hundred ";
+                    num = num % 100;
+                }
+
+                if (num >= 10 && num <= 19) {
+                    words += teens[num - 10];
+                }
+                else {
+                    if (Math.floor(num / 10) > 0) {
+                        words += tens[Math.floor(num / 10)] + " ";
+                    }
+                    if (num % 10 > 0) {
+                        words += ones[num % 10];
+                    }
+                }
+            }
+
+            document.getElementById("result").textContent = words;
+        }
+    </script>
+
+</body>
+</html>
